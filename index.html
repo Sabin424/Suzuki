@@ -1,0 +1,500 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.ico">
+
+    <title>Genuine Suzuki Spare Parts</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+      body {
+        font-family: "Poppins", sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+      .logo {
+        margin: 20px 0 5px 0;
+      }
+      .title {
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .description {
+        font-size: 18px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+      }
+      .select-part {
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .select-part select {
+        padding: 10px 40px 10px 10px;
+        font-size: 16px;
+        color: #6b7280;
+        border: 2px solid #3b82f6;
+        border-radius: 6px;
+        background-color: #ffffff;
+        width: 90%;
+        max-width: 500px;
+      }
+      .select-part select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+      .select-part .arrow-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        width: 15px;
+      }
+      .parts-image {
+        width: 900px;
+        height: 512px;
+        max-width: 100%;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
+      .contact {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #555;
+        padding: 0 10px;
+      }
+      .hr-line1 {
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+        margin: 5px 0;
+      }
+      .part-details {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .part-details table {
+        border-collapse: collapse;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .part-details th {
+        background-color: #003399;
+        color: white;
+        padding: 10px;
+        text-align: left;
+      }
+      .part-details td {
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      @media (max-width: 1024px) {
+        .parts-image {
+          width: 100%;
+          height: auto;
+        }
+        .select-part select {
+          max-width: 400px;
+        }
+        .part-details table {
+          max-width: 500px;
+        }
+      }
+      @media (max-width: 600px) {
+        .title {
+          font-size: 20px;
+        }
+        .description {
+          font-size: 16px;
+        }
+        .select-part select {
+          width: 90%;
+          max-width: 300px;
+        }
+        .contact-container {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          background-color: #fff;
+          padding: 10px 0;
+        }
+        .part-details table {
+          max-width: 300px;
+        }
+        .popup-box {
+          width: 94%;
+          padding: 18px 16px 16px;
+          margin-top: 5px;
+        }
+        .popup-box h3 {
+          font-size: 14px;
+        }
+        .popup-box label {
+          font-size: 12px;
+        }
+        .popup-box input {
+          padding: 8px 9px;
+          font-size: 13px;
+        }
+        .popup-box .btn-submit {
+          padding: 9px 20px;
+          font-size: 14px;
+        }
+        .popup-box .btn-skip {
+          font-size: 13px;
+        }
+      }
+      /* Inquiry Popup Styles */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .popup-overlay.hidden {
+        display: none;
+      }
+      .popup-box {
+        background: #fff;
+        border-radius: 14px;
+        padding: 24px 24px 20px;
+        width: 90%;
+        max-width: 420px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        position: relative;
+        margin-top: 5px;
+      }
+      .popup-box .popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .popup-box h3 {
+        margin: 0;
+        color: #003399;
+        font-size: 16px;
+      }
+      .popup-box .btn-skip {
+        background: none;
+        border: none;
+        font-size: 14px;
+        color: #888;
+        cursor: pointer;
+        font-family: "Poppins", sans-serif;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+      .popup-box .btn-skip:hover {
+        background: #f0f0f0;
+        color: #333;
+      }
+      .popup-box .form-group {
+        margin-bottom: 12px;
+        text-align: left;
+      }
+      .popup-box label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #333;
+      }
+      .popup-box input {
+        width: 100%;
+        padding: 9px 10px;
+        font-size: 14px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      .popup-box input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+      .popup-box input.input-error {
+        border-color: #e53e3e;
+      }
+      .popup-box .error-msg {
+        color: #e53e3e;
+        font-size: 12px;
+        margin-top: 3px;
+      }
+      .popup-box .btn-submit {
+        background-color: #003399;
+        color: #fff;
+        border: none;
+        padding: 10px 30px;
+        font-size: 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+      .popup-box .btn-submit:hover {
+        background-color: #002277;
+      }
+      .popup-box .btn-submit:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+      }
+    </style>
+    <link href="css/select2.min.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-89BDME7KFQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-89BDME7KFQ');
+    </script>
+  </head>
+  <body>
+    <img src="images/logoSuzuki.png" alt="Suzuki Logo" class="logo" style="width: 150px">
+    <div class="hr-line1"></div>
+    <div class="title">Suzuki Genuine Parts</div>
+    <div class="description">
+      Thank you for Choosing Genuine Suzuki Spare Parts. These Genuine Parts are
+      built specifically for your Suzuki car ensuring best performance &amp; safety
+      that you deserve.
+    </div>
+    <div class="select-part">
+        <input type="hidden" name="csrfmiddlewaretoken" value="cdkIscD4DQ1Sv9Wavr4mGhi3DVQ6TkfErnhIE7A7a3RoloSRdzMC2uGrVzGjZMiE">
+      <select id="partCode">
+        <option value="">Select part code..</option>
+      </select>
+      <!-- <img src="assets/arrowDown.png" alt="Arrow Down" class="arrow-icon" style="width: 15px;"> -->
+    </div>
+    <div class="part-details" id="results">
+        
+      <table>
+        <tbody><tr>
+          <th>Part Code</th>
+          <th>Part Name</th>
+          <th>MRP (13% VAT inclusive)</th>
+        </tr>
+        <tr>
+          </tr><tr>
+            <td>42431M55R00</td>
+            <td>MOUNT STABILIZER BAR</td>
+            <td>Rs. 203</td>
+          </tr>
+        
+      </tbody></table>
+        
+    </div>
+    <img src="images/suzukispareparts.jpg" alt="Suzuki Spare Parts" class="parts-image">
+    <div class="contact-container">
+      <div class="hr-line1"></div>
+      <div class="contact">
+        For further queries, feel free to contact:
+        <span style="color: #003399"><a href="tel:+977-1-5970678">01-5970678</a></span>
+      </div>
+    </div>
+    <!-- Inquiry Popup -->
+    <div class="popup-overlay" id="inquiryPopup">
+      <div class="popup-box">
+        <div class="popup-header">
+          <h3>Don’t miss out — fill in your details and join the lucky draw!</h3>
+          <button class="btn-skip" onclick="hidePopup()">Skip</button>
+        </div>
+        <div class="form-group">
+          <label for="chassisNumber">Last 6 Digits of Chassis Number</label>
+          <input type="text" id="chassisNumber" maxlength="6" placeholder="e.g. 123456" inputmode="numeric">
+          <div class="error-msg" id="chassisError"></div>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="text" id="phoneNumber" maxlength="10" placeholder="e.g. 98XXXXXXXX" inputmode="numeric">
+          <div class="error-msg" id="phoneError"></div>
+        </div>
+        <button class="btn-submit" id="inquirySubmitBtn" onclick="submitInquiry()">Submit</button>
+      </div>
+    </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show popup on page load
+            $("#inquiryPopup").removeClass("hidden");
+
+            $("#partCode").select2({
+                ajax: {
+                    url: "/master/spareparts/api/get_sparepart_list/",
+                    dataType: "json",
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            page: params.page
+                        };
+                    },
+                    processResults: function(data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: $.map(data.data, function(item) {
+                                return {
+                                    id: item.part_code,
+                                    text: `${item.part_code} - ${item.name}`,
+                                }
+                            }),
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: "Search for partcode",
+                minimumInputLength: 4,
+            });
+
+            // Auto-trigger search when a part is selected
+            $("#partCode").on("change", function () {
+                searchPart();
+            });
+
+            // Close popup when clicking on overlay background
+            $("#inquiryPopup").on("click", function (e) {
+                if (e.target === this) {
+                    hidePopup();
+                }
+            });
+
+            // Allow only digits in chassis and phone fields
+            $("#chassisNumber, #phoneNumber").on("input", function () {
+                this.value = this.value.replace(/\D/g, '');
+            });
+        });
+
+        function searchPart() {
+            const partCode = $("#partCode").val();
+            const resultsDiv = $("#results");
+
+            if (!partCode) {
+                resultsDiv.html("<p>Please select a part code.</p>");
+                return;
+            }
+
+            $.post("/master/spareparts/sparepart-search", {
+                code: partCode,
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+            }, function (response) {
+                let rs_html = ``;
+
+                if (response.success) {
+                    rs_html += `<table>
+                            <thead>
+                                <tr>
+                                    <th>Part Code</th>
+                                    <th>Part Name</th>
+                                    <th>MRP (inclusive of 13% VAT)</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+
+                    response.data.forEach(function(value) {
+                        const priceWithVAT = (parseFloat(value.price) * 1.13).toFixed(0);
+                        rs_html += `<tr>
+                            <td>${value.part_code}</td>
+                            <td>${value.name}</td>
+                            <td>Rs. ${priceWithVAT}</td>
+                        </tr>`;
+                    });
+
+                    rs_html += `</tbody></table>`;
+                }
+
+                resultsDiv.html(rs_html);
+            }, "json");
+        }
+
+        function hidePopup() {
+            $("#inquiryPopup").addClass("hidden");
+        }
+
+        function submitInquiry() {
+            const chassis = $("#chassisNumber").val().trim();
+            const phone = $("#phoneNumber").val().trim();
+            let valid = true;
+
+            // Reset errors
+            $("#chassisError").text('');
+            $("#phoneError").text('');
+            $("#chassisNumber").removeClass('input-error');
+            $("#phoneNumber").removeClass('input-error');
+
+            // Validate chassis number: exactly 6 digits
+            if (!chassis || !/^\d{6}$/.test(chassis)) {
+                $("#chassisError").text("Must be exactly 6 digits.");
+                $("#chassisNumber").addClass('input-error');
+                valid = false;
+            }
+
+            // Validate Nepali phone number: 10 digits starting with 97 or 98
+            if (!phone || !/^(97|98)\d{8}$/.test(phone)) {
+                $("#phoneError").text("Enter a valid 10-digit number starting with 97 or 98.");
+                $("#phoneNumber").addClass('input-error');
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            $("#inquirySubmitBtn").prop("disabled", true).text("Submitting...");
+
+            $.post("/master/spareparts/api/save_part_inquiry/", {
+                chassis_number: chassis,
+                phone_number: phone,
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+            }, function (response) {
+                if (response.success) {
+                    $(".popup-box").html(
+                        '<div style="text-align:center;padding:20px 0;">' +
+                        '<div style="font-size:36px;margin-bottom:10px;">✓</div>' +
+                        '<h3 style="color:#003399;margin:0 0 8px;">' + response.msg + '</h3>' +
+                        '<p style="color:#666;font-size:13px;margin:0;">We appreciate your time.</p>' +
+                        '</div>'
+                    );
+                    setTimeout(function () {
+                        hidePopup();
+                    }, 2000);
+                }
+            }, "json").fail(function(xhr) {
+                const resp = xhr.responseJSON;
+                if (resp && resp.errors) {
+                    if (resp.errors.chassis_number) {
+                        $("#chassisError").text(resp.errors.chassis_number);
+                        $("#chassisNumber").addClass('input-error');
+                    }
+                    if (resp.errors.phone_number) {
+                        $("#phoneError").text(resp.errors.phone_number);
+                        $("#phoneNumber").addClass('input-error');
+                    }
+                }
+            }).always(function() {
+                $("#inquirySubmitBtn").prop("disabled", false).text("Submit");
+            });
+        }
+    </script>
+  
+
+</body></html>
